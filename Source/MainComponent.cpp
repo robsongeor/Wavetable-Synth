@@ -40,7 +40,7 @@ void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate
 	startTimer(50);
 	morphValue = 0;
 
-	;
+	
 
 	for (int i = 0; i < wavetableAxisAmount; i++)
 	{
