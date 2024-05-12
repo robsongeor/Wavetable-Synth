@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="FKnBic" name="Wavetable Synth" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+  <MAINGROUP id="ewZytS" name="Wavetable Synth">
+    <GROUP id="{14F1162B-64A1-C214-F70D-FE4A299FA989}" name="Source">
+      <FILE id="V8j9kh" name="WaveTableFunctions.cpp" compile="1" resource="0"
+            file="Source/WaveTableFunctions.cpp"/>
+      <FILE id="K3NMGT" name="WaveTableFunctions.h" compile="0" resource="0"
+            file="Source/WaveTableFunctions.h"/>
+      <FILE id="LZ18sh" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="MQdTq1" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="qHJpAY" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="VYDoRr" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
+      <FILE id="GFBrUR" name="Oscilliscope.h" compile="0" resource="0" file="Source/Oscilliscope.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Wavetable Synth"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Wavetable Synth"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_core" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_events" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../../Documents/Juce/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../../Documents/Juce/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
