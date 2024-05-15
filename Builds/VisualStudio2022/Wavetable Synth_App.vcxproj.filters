@@ -595,6 +595,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ImportWavetables.cpp">
+      <Filter>Wavetable Synth\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\WaveTableFunctions.cpp">
       <Filter>Wavetable Synth\Source</Filter>
     </ClCompile>
@@ -3063,6 +3066,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ImportWavetables.h">
+      <Filter>Wavetable Synth\Source</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\WaveTableFunctions.h">
       <Filter>Wavetable Synth\Source</Filter>
     </ClInclude>

@@ -7,6 +7,7 @@
 #include "Wavetable.h"
 #include "Oscilliscope.h"
 #include "WaveTableFunctions.h"
+#include "ImportWavetables.h"
 
 //==============================================================================
 /*
@@ -41,7 +42,7 @@ public:
 	}
 
 	void createWavetables()
-	{
+	{	
 
 		for (int i = 0; i < wavetableAxisAmount; i++)
 		{
@@ -55,13 +56,8 @@ public:
 
 			for (unsigned int i2 = 0; i2 < tableSize; ++i2)
 			{
-				//This is our Generation function
-				auto sample = std::sin(currentAngle);
 
-				if (i == 5) {
-					sample = (sample < 0) ? -1 : 1;
-				}
-
+				auto sample = wti.retrieveWavetables()[i][i2];
 
 				samples[i2] = (float)sample;
 				currentAngle += angleDelta;
@@ -147,7 +143,10 @@ private:
 
 	juce::Random random;
 
+	WavetableImporter wti = WavetableImporter(tableSize, wavetableAxisAmount);
+
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
+
 
 
 };

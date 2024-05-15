@@ -4,6 +4,10 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
   <MAINGROUP id="ewZytS" name="Wavetable Synth">
     <GROUP id="{14F1162B-64A1-C214-F70D-FE4A299FA989}" name="Source">
+      <FILE id="kxzFpd" name="ImportWavetables.cpp" compile="1" resource="0"
+            file="Source/ImportWavetables.cpp"/>
+      <FILE id="fmgsr2" name="ImportWavetables.h" compile="0" resource="0"
+            file="Source/ImportWavetables.h"/>
       <FILE id="V8j9kh" name="WaveTableFunctions.cpp" compile="1" resource="0"
             file="Source/WaveTableFunctions.cpp"/>
       <FILE id="K3NMGT" name="WaveTableFunctions.h" compile="0" resource="0"
