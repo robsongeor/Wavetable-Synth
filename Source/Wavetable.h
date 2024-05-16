@@ -55,8 +55,6 @@ public:
     }
 
 
-
-
 private:
     const juce::AudioSampleBuffer& wavetable;
     const int tableSize;

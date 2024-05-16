@@ -19,8 +19,6 @@
 
 using namespace std;
 
-#ifndef IMPORTWAVETABLES_H    // To make sure you don't declare the function more than once by including the header multiple times.
-#define IMPORTWAVETABLES_H
 
 #pragma once
 
@@ -34,9 +32,11 @@ public:
 
     }
 
-    std::vector<std::vector<float>> retrieveWavetables() {
+    std::vector<std::vector<float>> retrieveWavetables(string filename) { // Retrieves wavetables from .txt file and returns them in a 2D array 
 
-        ifstream a_file("C:\\Users\\robso\\Desktop\\JUCE\\projects\\Wavetable Synth\\Source\\my.txt");
+        std::vector<std::vector<float>> wt_Arr;
+
+        ifstream a_file(filename);
         float var = 0.0f;
 
         for (int i = 0; i < tablesToFetch ; i++)
@@ -54,20 +54,12 @@ public:
         return wt_Arr;
     }
 
-
-
-
-
-
 private:
     
     int tableSize;
     int tablesToFetch;
-    std::vector<std::vector<float>> wt_Arr;
-    
+
 };
 
 #pragma once
 
-
-#endif

@@ -15,7 +15,9 @@ MainComponent::MainComponent()
 
 
 	createSliders();
-	createWavetables();
+	createWavetables(WaveTableBuffersX, x_wavetable_file);
+	createWavetables(WaveTableBuffersY, y_wavetable_file);
+	createWavetables(WaveTableBuffersZ, z_wavetable_file);
 
 	setAudioChannels(0, 2); // no inputs, two outputs
 
@@ -30,28 +32,35 @@ MainComponent::~MainComponent()
 void MainComponent::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
 	frequency = 440;
-	//samples of wavetable
 	wtSize = 128;
-	
+
 	amplitude = 0.25f;
 	sr = sampleRate;
 
-	samplesCount = 0;
+	freqSlider.setValue(frequency);
+
+
 	startTimer(50);
-	morphValue = 0;
+	morphValueX = 0;
+	morphValueY = 0;
+	morphValueZ = 0;
 
-	
-
-	for (int i = 0; i < wavetableAxisAmount; i++)
+	for (int i = 0; i < wavetableAxisAmount; i++)		// 
 	{
-		auto* wtab = WaveTableBuffers[i];
-		auto wt = new Wavetable(*wtab);
+		auto wavetableX = new Wavetable(*WaveTableBuffersX[i]);
+		wavetableX->setFrequency(frequency * (i + 1), (float)sampleRate);
+		//waveTablesOn_X_Axis.add(wavetableX);
 
-		// initialise frequnecy
-		wt->setFrequency(frequency * (i + 1), (float)sampleRate);
-		waveTablesOn_X_Axis.add(wt);
+		auto wavetableY = new Wavetable(*WaveTableBuffersY[i]);
+		wavetableY->setFrequency(frequency * (i + 1), (float)sampleRate);
+		//waveTablesOn_Y_Axis.add(wavetableY);
 
+		auto wavetableZ = new Wavetable(*WaveTableBuffersZ[i]);
+		wavetableZ->setFrequency(frequency * (i + 1), (float)sampleRate);
+
+		oscillatorA.SetWavetables(wavetableX, wavetableY, wavetableZ);
 	}
+
 
 }
 
@@ -67,26 +76,22 @@ void MainComponent::getNextAudioBlock(const juce::AudioSourceChannelInfo& buffer
 	//Iterates through each sample in the buffer
 	for (int sample = 0; sample < bufferToFill.numSamples; ++sample)
 	{
-		int waveTableIndex = (int)morphValue;
+		WT_Axis_And_Data* oa = oscillatorA.getWavetable();
 
-		//Get the samples of the 2 wavetables we are morphing between
-		float newInt = waveTablesOn_X_Axis.getUnchecked(waveTableIndex)->getNextSample();
-		float newInt2 = waveTablesOn_X_Axis.getUnchecked(waveTableIndex + 1)->getNextSample();
+		
 
-		//adjust morph value so its between 0-1 (so wavetables above can morph between eachother
-		float adjustedMorphValue = morphValue - waveTableIndex;
+		oscillatorA.SetWavetableData(morphValueX, morphValueY, morphValueZ);
 
-		//Get the sample at the interpolation between these two wavetables 
-		ch1[sample] = morphedTables(newInt2, newInt, adjustedMorphValue) * amplitude;
-		ch0[sample] = morphedTables(newInt2, newInt, adjustedMorphValue) * amplitude;
+		
+		//morph all wavetable samples
+		float mt_mtxy_z = oscillatorA.GetOscOutputSample() * amplitude;
 
-		//updateFrequency
-		waveTablesOn_X_Axis.getUnchecked(waveTableIndex)->setFrequency(frequency, sr);
+		ch1[sample] = mt_mtxy_z;
+		ch0[sample] = mt_mtxy_z;
 
-		samplesCount++;
+		oscillatorA.SetOscillatorFrequency(frequency, sr);
+
 	}
-
-	
 }
 
 void MainComponent::releaseResources()
@@ -96,35 +101,61 @@ void MainComponent::releaseResources()
 
 void MainComponent::paint(juce::Graphics& g)
 {
-	g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
-	g.setColour(juce::Colours::green);
-
-	float startX = 0;
-	float startY = 0;
-	float endX = 0;
-	float endY = 0;
-
-	int waveTableIndex = (int)morphValue;
-	float adjustedMorphValue = morphValue - waveTableIndex;
-
-	for (int i = 0; i < wtSize-1; i+=1) {
-		startX = i * 4+40;
-		endX = i * 4 + 50;
-
-		float valA = waveTablesOn_X_Axis.getUnchecked(waveTableIndex)->getStartSampleToDraw(i);
-		float valB = waveTablesOn_X_Axis.getUnchecked(waveTableIndex)->getStartSampleToDraw(i + 1);
+	//g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
 
-		float valA1 = waveTablesOn_X_Axis.getUnchecked(waveTableIndex+1)->getStartSampleToDraw(i);
-		float valB1 = waveTablesOn_X_Axis.getUnchecked(waveTableIndex + 1)->getStartSampleToDraw(i + 1);
+	//float x_smpl = 0;
+	//float x_val = 0;
 
-		startY = morphedTables(valA1, valA, adjustedMorphValue) * 30 + getHeight()/2;
-		endY = morphedTables(valB1, valB, adjustedMorphValue) * 30 + getHeight() / 2;
-		//g.drawLine(startX, startY, endX, endY, 1);
-		g.fillEllipse(startX, startY, 2, 2);
-	}
+	//float y_smpl = 0;
+	//float y_val = 0;
 
-	
+	//float z_smpl = 0;
+	//float z_val = 0;
+
+	//int waveTableIndex_X = (int)morphValueX;
+	//int waveTableIndex_Y = (int)morphValueY;
+	//int waveTableIndex_Z = (int)morphValueZ;
+
+	//float adjustedMorphValue_X = morphValueX - waveTableIndex_X;
+	//float adjustedMorphValue_Y = morphValueY - waveTableIndex_Y;
+	//float adjustedMorphValue_Z = morphValueZ - waveTableIndex_Z;
+
+	//for (int i = 0; i < wtSize - 1; i += 1) {
+	//	x_smpl = i * 4 + 40;
+	//	y_smpl = i * 4 + 40;
+	//	z_smpl = i * 4 + 40;
+
+	//	float xCur = waveTablesOn_X_Axis.getUnchecked(waveTableIndex_X)->getStartSampleToDraw(i);
+	//	float xNext = waveTablesOn_X_Axis.getUnchecked(waveTableIndex_X + 1)->getStartSampleToDraw(i);
+
+	//	float yCur = waveTablesOn_Y_Axis.getUnchecked(waveTableIndex_Y)->getStartSampleToDraw(i);
+	//	float yNext = waveTablesOn_Y_Axis.getUnchecked(waveTableIndex_Y + 1)->getStartSampleToDraw(i);
+
+	//	float zCur = waveTablesOn_Z_Axis.getUnchecked(waveTableIndex_Z)->getStartSampleToDraw(i);
+	//	float zNext = waveTablesOn_Z_Axis.getUnchecked(waveTableIndex_Z + 1)->getStartSampleToDraw(i);
+
+	//	x_val = morphedTables(xNext, xCur, adjustedMorphValue_X) * 60 + getHeight() / 2;
+	//	y_val = morphedTables(yNext, yCur, adjustedMorphValue_Y) * 60 + getHeight() / 2;
+	//	z_val = morphedTables(zNext, zCur, adjustedMorphValue_Z) * 60 + getHeight() / 2;
+
+
+	//	float mt_mtxy_z = (x_val + y_val + z_val) / 3;
+
+	//	g.setColour(juce::Colours::green);
+	//	g.fillEllipse(x_smpl, x_val, 4, 4);
+
+	//	g.setColour(juce::Colours::red);
+	//	g.fillEllipse(y_smpl, y_val, 4, 4);
+
+	//	g.setColour(juce::Colours::blue);
+	//	g.fillEllipse(z_smpl, z_val, 4, 4);
+
+	//	g.setColour(juce::Colours::white);
+	//	g.fillEllipse(z_smpl, mt_mtxy_z + 120, 4, 4);
+	//}
+
+
 }
 
 void MainComponent::resized()
@@ -133,8 +164,11 @@ void MainComponent::resized()
 	cpuUsageText.setBounds(10, 10, getWidth() - 20, 20);
 
 	const int labelSpace = 100;
-	morphSlider.setBounds(100, 20, getWidth() - 200, 40);
-	freqSlider.setBounds(100, 80, getWidth() - 200, 40);
+	morphSliderX.setBounds(100, 20, getWidth() - 200, 40);
+	morphSliderY.setBounds(100, 70, getWidth() - 200, 40);
+	morphSliderZ.setBounds(100, 120, getWidth() - 200, 40);
+
+	freqSlider.setBounds(100, 170, getWidth() - 200, 40);
 }
 
 

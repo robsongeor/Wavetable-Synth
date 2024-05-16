@@ -17,6 +17,10 @@
       <FILE id="qHJpAY" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="VYDoRr" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
+      <FILE id="Lqb6i8" name="WavetableOscillator.cpp" compile="1" resource="0"
+            file="Source/WavetableOscillator.cpp"/>
+      <FILE id="KrlAZT" name="WavetableOscillator.h" compile="0" resource="0"
+            file="Source/WavetableOscillator.h"/>
       <FILE id="GFBrUR" name="Oscilliscope.h" compile="0" resource="0" file="Source/Oscilliscope.h"/>
     </GROUP>
   </MAINGROUP>

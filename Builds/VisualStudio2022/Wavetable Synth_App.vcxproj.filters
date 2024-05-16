@@ -607,6 +607,9 @@
     <ClCompile Include="..\..\Source\MainComponent.cpp">
       <Filter>Wavetable Synth\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\WavetableOscillator.cpp">
+      <Filter>Wavetable Synth\Source</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_basics\audio_play_head\juce_AudioPlayHead.cpp">
       <Filter>JUCE Modules\juce_audio_basics\audio_play_head</Filter>
     </ClCompile>
@@ -3076,6 +3079,9 @@
       <Filter>Wavetable Synth\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Wavetable.h">
+      <Filter>Wavetable Synth\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\WavetableOscillator.h">
       <Filter>Wavetable Synth\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Oscilliscope.h">
