@@ -89,7 +89,8 @@ public:
 		createSlider(morphSliderZ, morphLabelZ, "Morph Z", 0, 6.999);
 
 		//    - FREQ SLIDER -     //
-		createSlider(freqSlider, freqLabel, "Frequency", 50, 2000);
+		createSlider(freqSliderA, freqLabelA, "Frequency A", 50, 2000);
+		createSlider(freqSliderB, freqLabelB, "Frequency B", 50, 2000);
 
 	}
 
@@ -114,26 +115,15 @@ public:
 		if (slider == &morphSliderZ) {
 			morphValueZ = morphSliderZ.getValue();
 		}
-		if (slider == &freqSlider) {
-			frequency = freqSlider.getValue();
+		if (slider == &freqSliderA) {
+			frequencyA = freqSliderA.getValue();
+		}
+		if (slider == &freqSliderB) {
+			frequencyB = freqSliderB.getValue();
 		}
 		repaint();
 	}
 
-	XYZ_sample_values getXYZSampleValues(	int ix, int iy, int iz, WT_Axis_And_Data& wtaxis){
-		XYZ_sample_values xyz;
-
-		xyz.x = wtaxis.x.getUnchecked(ix)->getNextSample();
-		xyz.x1 = wtaxis.x.getUnchecked(ix + 1)->getNextSample();
-
-		xyz.y = wtaxis.y.getUnchecked(iy)->getNextSample();
-		xyz.y1 = wtaxis.y.getUnchecked(iy + 1)->getNextSample();
-
-		xyz.z = wtaxis.z.getUnchecked(iz)->getNextSample();
-		xyz.z1 = wtaxis.z.getUnchecked(iz + 1)->getNextSample();
-
-		return xyz;
-	}
 
 
 
@@ -145,8 +135,8 @@ private:
 	// Your private member variables go here...
 
 	double wtSize;
-	double frequency;
-
+	double frequencyA;
+	double frequencyB;
 
 	double morphValueX;
 	double morphValueY;
@@ -159,15 +149,8 @@ private:
 	//Create an array of wavetable objects
 
 	WavetableOscillator oscillatorA;
+	WavetableOscillator oscillatorB;
 	
-	juce::OwnedArray<Wavetable> waveTablesOn_X_Axis;                    //Array of Wavetable objects
-	juce::OwnedArray<Wavetable> waveTablesOn_Y_Axis;
-	juce::OwnedArray<Wavetable> waveTablesOn_Z_Axis;
-
-	//juce::OwnedArray<Wavetable> waveTablesOn_X_Axis2;                    //Array of Wavetable objects
-	//juce::OwnedArray<Wavetable> waveTablesOn_Y_Axis2;
-	//juce::OwnedArray<Wavetable> waveTablesOn_Z_Axis2;
-
 	const unsigned int tableSize = 1 << 7;
 
 	juce::OwnedArray<juce::AudioSampleBuffer> WaveTableBuffersX;          //Array of wavetable buffers, just the sample waveform.
@@ -188,8 +171,11 @@ private:
 	juce::Label  morphLabelY;
 	juce::Label  morphLabelZ;
 
-	juce::Slider freqSlider;
-	juce::Label  freqLabel;
+	juce::Slider freqSliderA;
+	juce::Label  freqLabelA;
+
+	juce::Slider freqSliderB;
+	juce::Label  freqLabelB;
 
 	juce::Random random;
 
